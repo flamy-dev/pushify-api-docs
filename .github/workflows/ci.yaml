@@ -15,9 +15,8 @@ jobs:
       - name: 'build docs'
         run: |
           pip install --user mkdocs
-          cd api_docs
           mkdocs build
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./api_docs/site
+          publish_dir: ./site
