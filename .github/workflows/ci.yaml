@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  gh-pages:
+    name: GitHub Pages
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: 'build docs'
+        run: |
+          pip install --user mkdocs
+          cd api_docs
+          mkdocs build
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./api_docs/site
